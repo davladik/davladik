@@ -1,15 +1,17 @@
-from aiogram import Bot, Dispatcher
-from aiogram.utils import executor
-from loader import *
+from aiogram import executor
+
+from loader import dp
+import middlewares, filters, handlers
+# from utils.notify_admins import on_startup_notify
+# from utils.set_bot_commands import set_default_commands
 
 
-bot = Bot(token)
-dp = Dispatcher(bot)
+async def on_startup(dispatcher):
+    # await set_default_commands(dispatcher)
+
+    # await on_startup_notify(dispatcher)
+    pass
 
 
-@dp.message_handler()
-async def get_message(message):
-    print(await bot.get_updates())
-
-
-executor.start_polling(dp)
+if __name__ == '__main__':
+    executor.start_polling(dp, on_startup=on_startup)
